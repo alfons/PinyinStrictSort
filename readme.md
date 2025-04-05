@@ -23,7 +23,6 @@ Hànyǔ Pīnyīn is the romanised writing form of modern, spoken, standard Chine
     - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
     - Grok (xAI): Coding the tricky parts of the implementation with flair and precision.
     - Alfons Grabher: Idea, prompting, testing, and driving the development.
-      alfonsgrabher.com/blog
 
 ## Usage
 
