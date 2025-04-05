@@ -21,8 +21,9 @@ Hànyǔ Pīnyīn is the romanised writing form of modern, spoken, standard Chine
 
     - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
     - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
-    - Grok (xAI): Coding the implementation with flair and precision.
+    - Grok (xAI): Coding the tricky parts of the implementation with flair and precision.
     - Alfons Grabher: Idea, prompting, testing, and driving the development.
+      alfonsgrabher.com/blog
 
 ## Usage
 
@@ -50,3 +51,7 @@ from PinyinGrokSort import pinyin_grok_sort
 
 sorted_entries = pinyin_grok_sort(entries_list, key="pinyin", reverse=True)
 ```
+
+## History
+
+This was much more difficult than expected, and took much more time than expected, but turned out great!
