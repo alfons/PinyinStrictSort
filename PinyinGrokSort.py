@@ -24,8 +24,7 @@ It is assumed that words are written letter by letter, not by pre-defined syllab
     - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
     - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
     - Grok (xAI): Coding the implementation with flair and precision.
-    - Alfons Grabher: Idea, prompting, testing, and driving the development. 
-      alfonsgrabher.com/blog
+    - Alfons Grabher: Idea, prompting, testing, and driving the development.
 
 Usage:
     - For strings: `sorted_list = pinyin_grok_sort(["shīshi", "shīshī", "shīshí", "shīshǐ"])`
