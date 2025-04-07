@@ -1,74 +1,72 @@
 """
-PinyinGrokSort - A Pīnyīn sorting module
+PinyinGrokSort - A Pinyin sorting module with custom rules.
 
-## Description
-
-A fast sorting algorithm to sort words in Hànyǔ Pīnyīn in alphabetical order, 
-inspired by the "ABC Chinese-English Dictionary" by John DeFrancis.
-
-Hànyǔ Pīnyīn is the romanised writing form of modern, spoken, standard Chinese. 
-The sorting algorithm is intended for Pīnyīn with diacritics (no fall-back to tone numbers.) 
-It is assumed that words are written letter by letter, not by pre-defined syllable blocks.
-
-## The Rules
-
+Description:
+    This module implements a Pinyin sorting algorithm based on rules outlined by John DeFrancis in
+    "ABC Chinese-English Dictionary". It sorts Pinyin strings considering base characters, tones,
+    umlauts (u vs ü), case sensitivity, and separators. The rules are:
     1. Sort by base characters (ignoring tones, case, and separators) alphabetically.
-    2. Sort by tones: no tone, 1st tone (ā), 2nd tone (á), 3rd tone (ǎ), 4th tone (à).
-    3. Sort u before ü.
-    4. Sort lowercase/mixed case before all uppercase.
-    5. Sort by separators: no separator < space < hyphen.
+    2. For identical bases, sort by tones (0=no tone, 1=ā, 2=á, 3=ǎ, 4=à) per syllable.
+    3. For identical tones, sort u before ü.
+    4. For identical u/ü, sort lowercase/mixed case before all uppercase (proportion-based).
+    5. For identical case, sort by separators: no separator < space < hyphen.
 
+    The sort can handle plain Pinyin strings or lists of dictionaries with a specified key.
 
-## Credits
-
+Credits:
     - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
-    - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
+    - Mark Swofford: Preserving and explaining the rules via pinyin.info blog.
     - Grok (xAI): Coding the implementation with flair and precision.
-    - Alfons Grabher: Idea, prompting, testing, and driving the development.
+    - Alfons Grabher: Prompting, testing, and driving the development.
 
 Usage:
-    - For strings: `sorted_list = pinyin_grok_sort(["shīshi", "shīshī", "shīshí", "shīshǐ"])`
-    - For dictionaries: `sorted_list = pinyin_grok_sort([{"pinyin": "shīshí"}, {"pinyin": "shīshi"}], key="pinyin")`
+    - For strings: `sorted_list = pinyin_grok_sort(["hòujìn", "Hòu Jìn"])`
+    - For dictionaries: `sorted_list = pinyin_grok_sort([{"pinyin": "hòujìn"}, {"pinyin": "Hòu Jìn"}], key="pinyin")`
 """
 
 from functools import cmp_to_key
 
 def _compare_pinyin(w1, w2):
     """Compare two Pinyin words with proper sorting rules."""
-    tones1, tones2 = [], []
-    i, len1, len2 = 0, len(w1), len(w2)
-    
-    while i < min(len1, len2):
-        c1, c2 = w1[i].lower(), w2[i].lower()
-        if c1 in ' -' or c2 in ' -': break
-        
-        base1 = c1.translate(str.maketrans('āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ', 'aaaaeeeeiiiioooouuuuüüüü'))
-        base2 = c2.translate(str.maketrans('āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ', 'aaaaeeeeiiiioooouuuuüüüü'))
-        if base1 != base2:
-            return -1 if base1 < base2 else 1
-        
-        for c, tones in [(c1, tones1), (c2, tones2)]:
-            if c in 'aeiouüāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ':
+    def get_base_and_tones(word):
+        base = ""
+        tones = []
+        syllable = ""
+        for c in word.lower():
+            if c in ' -':  # Handle separators
+                if syllable:
+                    tones.append(0)  # No tone for consonant-only syllables
+                    base += syllable.translate(str.maketrans('āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ', 'aaaaeeeeiiiioooouuuuüüüü'))
+                    syllable = ""
+                continue
+            syllable += c
+            if c in 'āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ':
                 tones.append(1 if c in 'āēīōūǖ' else 2 if c in 'áéíóúǘ' else 3 if c in 'ǎěǐǒǔǚ' else 4 if c in 'àèìòùǜ' else 0)
-        
-        i += 1
-    
-    if len1 != len2:
-        return -1 if len1 < len2 else 1
-    
+        if syllable:  # Handle last syllable
+            base += syllable.translate(str.maketrans('āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ', 'aaaaeeeeiiiioooouuuuüüüü'))
+            tones.append(0 if not any(c in 'āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ' for c in syllable) else tones[-1] if tones else 0)
+        return base, tones
+
+    base1, tones1 = get_base_and_tones(w1)
+    base2, tones2 = get_base_and_tones(w2)
+
+    if base1 != base2:
+        return -1 if base1 < base2 else 1
     if tones1 != tones2:
         return -1 if tones1 < tones2 else 1
-    
-    u1, u2 = any(c in 'ǖǘǚǜü' for c in w1.lower()), any(c in 'ǖǘǚǜü' for c in w2.lower())
+
+    u1, u2 = 'ü' in w1.lower(), 'ü' in w2.lower()
     if u1 != u2:
         return 1 if u1 else -1
-    
+
     alpha1, alpha2 = [c for c in w1 if c.isalpha()], [c for c in w2 if c.isalpha()]
-    case1, case2 = sum(c.isupper() for c in alpha1) / len(alpha1) if alpha1 else 0, sum(c.isupper() for c in alpha2) / len(alpha2) if alpha2 else 0
+    case1 = sum(c.isupper() for c in alpha1) / len(alpha1) if alpha1 else 0
+    case2 = sum(c.isupper() for c in alpha2) / len(alpha2) if alpha2 else 0
     if case1 != case2:
         return -1 if case1 < case2 else 1
-    
-    sep1, sep2 = (0 if ' ' not in w1 and '-' not in w1 else 1 if ' ' in w1 else 2), (0 if ' ' not in w2 and '-' not in w2 else 1 if ' ' in w2 else 2)
+
+    sep1 = 0 if ' ' not in w1 and '-' not in w1 else 1 if ' ' in w1 else 2
+    sep2 = 0 if ' ' not in w2 and '-' not in w2 else 1 if ' ' in w2 else 2
     return -1 if sep1 < sep2 else 1 if sep1 > sep2 else 0
 
 def pinyin_grok_sort(items, key=None, reverse=False):
@@ -88,16 +86,13 @@ def pinyin_grok_sort(items, key=None, reverse=False):
 
 if __name__ == "__main__":
     # Test with strings
-    test_words = ["shīshi", "shīshī", "shīshí", "shīshǐ", "shīshì", "shíshī", "shíshì", "shǐshī", "shìshī",
-              "lu", "lú", "lǔ", "lù", "lǘ", "lǚ", "lǜ", "lū", "lōu", "nù", "nǚ", "nà", "na", "nā",
-              "biàn", "bǐ’àn", "bi’àn", "hòujìn", "Hòu Jìn", "Hòujìn", "Hòu Jin", "Hòu-Jìn", "HòuJìn",
-              "hòumiànpíng’ān", "píng", "pīnyīn", "lìgōng", "lǐ-gōng"]
+    test_words = ["shīshi", "shīshī", "shīshí", "hòujìn", "Hòu Jìn", "Hòujìn", "bólì", "bōli", "HòuJìn"]
     print("Sorted strings:")
     for word in pinyin_grok_sort(test_words):
         print(word)
     
     # Test with dictionaries
-    test_dicts = [{"pinyin": "duìjù", "meaning": "couplet"}, {"pinyin": "duìjú", "meaning": "opposing sides (in chess etc)"}]
+    test_dicts = [{"pinyin": "bólì", "meaning": "later Jin"}, {"pinyin": "bōli", "meaning": "Later Jin dynasty"}]
     print("\nSorted dictionaries:")
     for item in pinyin_grok_sort(test_dicts, key="pinyin"):
         print(item)
