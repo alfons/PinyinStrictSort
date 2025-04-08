@@ -22,7 +22,7 @@ The sort function handles arrays of plain Pīnyīn strings or arrays of dictiona
 
 ## Credits:
 
-- John DeFrancis: Original Pinyin ordering rules.
+- John DeFrancis: Original Pīnyīn ordering rules.
 - Mark Swofford of Banqiao, Taiwan: Preserving and explaining the rules.
 - Alfons Grabher: Idea, concept, prompting, testing, and driving the development of pinyinAbcSort.
 - Grok (xAI): Coding the implementation with flair and precision.
@@ -71,8 +71,15 @@ Raptor SpaceX booster rocket. 🚀
 */
 
 function comparePinyin(w1, w2) {
-    const orderedChars = "aāáǎàAĀÁǍÀbBcCdDeēéěèEĒÉĚÈfFgGhHiīíǐìIĪÍǏÌjJkKlLmMnNoōóǒòOŌÓǑÒpPqQrRsStTuūúǔùUŪÚǓÙüǖǘǚǜÜǕǗǙǛvVwWxXyYzZ'- ";
-    const WEIGHTS = Object.fromEntries([...orderedChars].map((ch, i) => [ch, i]));
+    const orderedChars = (
+        "aāáǎàAĀÁǍÀbBcCdDeēéěèEĒÉĚÈfFgGhHiīíǐìIĪÍǏÌ" +
+        "jJkKlLmMnNoōóǒòOŌÓǑÒpPqQrRsStTuūúǔùUŪÚǓÙ" +
+        "üǖǘǚǜÜǕǗǙǛvVwWxXyYzZ'- "
+    );
+    const WEIGHTS = {};
+    for (let i = 0; i < orderedChars.length; i++) {
+        WEIGHTS[orderedChars[i]] = i;
+    }
 
     const seq1 = Array.from(w1).map(c => WEIGHTS[c] ?? 999);
     const seq2 = Array.from(w2).map(c => WEIGHTS[c] ?? 999);
