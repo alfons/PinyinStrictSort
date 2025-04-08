@@ -2,26 +2,27 @@
 PinyinGrokSort - A Pinyin sorting module with custom rules.
 
 Description:
-    This module implements a Pinyin sorting algorithm based on rules outlined by John DeFrancis in
-    "ABC Chinese-English Dictionary". It sorts Pinyin strings considering base characters, tones,
-    umlauts (u vs ü), case sensitivity, and separators. The rules are:
+
+    A fast sorting algorithm to sort words in Hànyǔ Pīnyīn in alphabetical order, inspired by the "ABC Chinese-English Dictionary" by John DeFrancis. The sorting algorithm is intended for Pīnyīn with diacritics (no fall-back to tone numbers.)
+
+The Rules
+
     1. Sort by base characters (ignoring tones, case, and separators) alphabetically.
-    2. For identical bases, sort by tones (0=no tone, 1=ā, 2=á, 3=ǎ, 4=à) per syllable.
-    3. For identical tones, sort u before ü.
-    4. For identical u/ü, sort lowercase/mixed case before all uppercase (proportion-based).
-    5. For identical case, sort by separators: no separator < space < hyphen.
+    2. Sort by tones: base character (a), 1st tone (ā), 2nd tone (á), 3rd tone (ǎ), 4th tone (à).
+    3. Sort u before ü.
+    4. Sort lowercase before uppercase.
+    5. Sort by separators: no separator < space < hyphen.
 
-    The sort can handle plain Pinyin strings or lists of dictionaries with a specified key.
+Credits
 
-Credits:
     - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
-    - Mark Swofford: Preserving and explaining the rules via pinyin.info blog.
-    - Grok (xAI): Coding the implementation with flair and precision.
-    - Alfons Grabher: Prompting, testing, and driving the development.
+    - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
+    - Grok (xAI): Coding the tricky parts of the implementation with flair and precision.
+    - Alfons Grabher: Idea, prompting, testing, and driving the development.
 
 Usage:
-    - For strings: `sorted_list = pinyin_grok_sort(["hòujìn", "Hòu Jìn"])`
-    - For dictionaries: `sorted_list = pinyin_grok_sort([{"pinyin": "hòujìn"}, {"pinyin": "Hòu Jìn"}], key="pinyin")`
+    - Array of strings: `sorted_list = pinyin_grok_sort(["hòujìn", "Hòu Jìn"])`
+    - Array of dictionaries: `sorted_list = pinyin_grok_sort([{"pinyin": "hòujìn"}, {"pinyin": "Hòu Jìn"}], key="pinyin")`
 """
 
 from functools import cmp_to_key
