@@ -1,62 +1,71 @@
 """
-PinyinGrokSort - Sort words in Hànyǔ Pīnyīn in alphabetical order (fast)
+# PinyinGrokSort - Sort words in Hànyǔ Pīnyīn in alphabetical order (fast)
 
-Description:
-    This module implements a Pinyin sorting algorithm based on 
-    rules outlined by John DeFrancis in "ABC Chinese-English Dictionary". 
+## Description:
+This module implements a Pinyin sorting algorithm based on 
+rules outlined by John DeFrancis in "ABC Chinese-English Dictionary". 
     
-    However, the sorting algorithm looks at Pīnyīn letter by letter,
-    as Pīnyīn is written using the ALPHABET,
-    a realisation and algorithm design concept by Alfons Grabher.
+Note：☝️ The sorting algorithm looks at words letter by letter, 
+not syllable by syllable, as Pīnyīn is written using the ALPHABET, 
+a realisation and algorithm design concept by Alfons Grabher.
 
-    The rules are:
+## The rules are:
     
-    1. Alphabetical Order: Base chars (a-z) first, letter-by-letter.
-    3. u before ü, U before Ü.
-    2. Tones: 0 < 1 < 2 < 3 < 4
-    4. Lowercase/mixed before uppercase.
-    5. Separators: single quote < hyphen < space.
+1. Alphabetical Order: Base chars (a-z) first, letter-by-letter.
+2. u before ü, U before Ü.
+3. Tones: 0 < 1 < 2 < 3 < 4
+4. Lowercase/mixed before uppercase.
+5. Separators: single quote < hyphen < space.
     
-    The sort can handle plain Pinyin strings or lists of dictionaries with a specified key.
+The sort handles arrays of plain Pīnyīn strings, or arrays of dictionaries with a specified key.
 
-Credits:
-    - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
-    - Mark Swofford: Preserving and explaining the rules via pinyin.info blog.
-    - Alfons Grabher: Concept, ideas, prompting, testing, and driving the development.
-    - Grok (xAI): Coding the implementation with flair and precision.
+## Credits:
 
-Usage:
-    # Array of Strings
-    words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
-    sorted_words = pinyin_grok_sort(words)
-    print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+- John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
+- Mark Swofford of Banqiao, Taiwan: Preserving and explaining the rules.
+- Alfons Grabher: Concept, ideas, prompting, testing, and driving the development.
+- Grok (xAI): Coding the implementation with flair and precision.
 
-    # Array of Dictionaries
-    dicts = [
-        {"pinyin": "bǎozhàng", "meaning": "guarantee"},
-        {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
-        {"pinyin": "bǎoyù", "meaning": "jade"}
-    ]
-    sorted_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"])
-    print(sorted_dicts)
-    # [
-    #   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
-    #   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-    #   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
-    # ]
+## Usage 
+# Array of Strings
+words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
+sorted_words = pinyin_grok_sort(words)
+print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-    # Reverse Order (Strings)
-    reverse_words = pinyin_grok_sort(words, reverse=True)
-    print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+# Array of Dictionaries
+dicts = [
+    {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+    {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"pinyin": "bǎoyù", "meaning": "jade"}
+]
+sorted_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"])
+print(sorted_dicts)
+# [
+#   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
+#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
+# ]
 
-    # Reverse Order (Dictionaries)
-    reverse_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"], reverse=True)
-    print(reverse_dicts)
-    # [
-    #   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
-    #   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-    #   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
-    # ]
+# Reverse Order (Strings)
+reverse_words = pinyin_grok_sort(words, reverse=True)
+print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+
+# Reverse Order (Dictionaries)
+reverse_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"], reverse=True)
+print(reverse_dicts)
+# [
+#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
+#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+#   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
+# ]
+
+## History
+
+This was much more difficult than expected, and took much, much more time than expected. 
+But in the end it looks so simple, almost laughable simple, and flies like a 
+Raptor SpaceX booster rocket. 🚀
+
+Alfons, alfonsgrabher.com
 """
 
 from functools import cmp_to_key
