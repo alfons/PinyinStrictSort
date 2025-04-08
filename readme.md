@@ -1,54 +1,105 @@
-## Installation
+# PinyinGrokSort - Sort words in Hànyǔ Pīnyīn in alphabetical order (fast)
 
-# PinyinGrokSort
+## Description:
+This module implements a Pinyin sorting algorithm based on 
+rules outlined by John DeFrancis in "ABC Chinese-English Dictionary". 
+    
+Note：☝️ The sorting algorithm looks at words letter by letter, 
+not syllable by syllable, as Pīnyīn is written using the ALPHABET, 
+a realisation and algorithm design concept by Alfons Grabher.
 
-## Description
+## The rules are:
+    
+1. Alphabetical Order: Base chars (a-z) first, letter-by-letter.
+2. u before ü, U before Ü.
+3. Tones: 0 < 1 < 2 < 3 < 4
+4. Lowercase/mixed before uppercase.
+5. Separators: single quote < hyphen < space.
+    
+The sort handles arrays of plain Pīnyīn strings, or arrays of dictionaries with a specified key.
 
-A fast sorting algorithm to sort words in Hànyǔ Pīnyīn in alphabetical order, inspired by the "ABC Chinese-English Dictionary" by John DeFrancis. The sorting algorithm is intended for Pīnyīn with diacritics (no fall-back to tone numbers.)
+## Credits:
 
-## The Rules
+- John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
+- Mark Swofford of Banqiao, Taiwan: Preserving and explaining the rules.
+- Alfons Grabher: Concept, ideas, prompting, testing, and driving the development.
+- Grok (xAI): Coding the implementation with flair and precision.
 
-    1. Sort by base characters (ignoring tones, case, and separators) alphabetically.
-    2. Sort by tones: base character (a), 1st tone (ā), 2nd tone (á), 3rd tone (ǎ), 4th tone (à).
-    3. Sort u before ü.
-    4. Sort lowercase before uppercase.
-    5. Sort by separators: no separator < space < hyphen.
+## Usage 
 
-
-## Credits
-
-    - John DeFrancis: Original Pinyin sorting rules from "ABC Chinese-English Dictionary".
-    - Mark Swofford of Banqiao, Taiwan: Explaining the rules on the pinyin.info blog.
-    - Grok (xAI): Coding the tricky parts of the implementation with flair and precision.
-    - Alfons Grabher: Idea, prompting, testing, and driving the development.
-
-## Usage
-
-### For an array of strings: 
+### Python
     
 ```python
-from PinyinGrokSort import pinyin_grok_sort
+    # Array of Strings
+    words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
+    sorted_words = pinyin_grok_sort(words)
+    print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-sorted_list = pinyin_grok_sort(["shíshī", "shíshì", "shǐshī", "shìshī", "shīshi", "shīshī", "shīshí", "shīshǐ", "shīshì"])
+    # Array of Dictionaries
+    dicts = [
+        {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+        {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+        {"pinyin": "bǎoyù", "meaning": "jade"}
+    ]
+    sorted_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"])
+    print(sorted_dicts)
+    # [
+    #   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
+    #   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+    #   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
+    # ]
+
+    # Reverse Order (Strings)
+    reverse_words = pinyin_grok_sort(words, reverse=True)
+    print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+
+    # Reverse Order (Dictionaries)
+    reverse_dicts = pinyin_grok_sort(dicts, key=lambda item: item["pinyin"], reverse=True)
+    print(reverse_dicts)
+    # [
+    #   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
+    #   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+    #   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
+    # ]
 ```
+### Javascript
 
-### For an array of dictionaries:
+```javascript
+    // Array of Strings
+    const words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"];
+    const sortedWords = pinyinGrokSort(words);
+    console.log(sortedWords); // ["bǎoyù", "bǎozhàng", "Bǎoyǔ"]
 
-```python
-from PinyinGrokSort import pinyin_grok_sort
+    // Array of Dictionaries
+    const dicts = [
+        { pinyin: "bǎozhàng", meaning: "guarantee" },
+        { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
+        { pinyin: "bǎoyù", meaning: "jade" }
+    ];
+    const sortedDicts = pinyinGrokSort(dicts, item => item.pinyin);
+    console.log(sortedDicts);
+    // [
+    //   { pinyin: "bǎoyù", meaning: "jade" },
+    //   { pinyin: "bǎozhàng", meaning: "guarantee" },
+    //   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" }
+    // ]
 
-sorted_list = pinyin_grok_sort([{"pinyin": "shíshī"}, {"pinyin": "shīshi"}], key="pinyin")
-```
+    // Reverse Order (Strings)
+    const reverseWords = pinyinGrokSort(words, null, true);
+    console.log(reverseWords); // ["Bǎoyǔ", "bǎozhàng", "bǎoyù"]
 
-
-### For an array of dictionaries (descending order Z-A):
-
-```python
-from PinyinGrokSort import pinyin_grok_sort
-
-sorted_entries = pinyin_grok_sort(entries_list, key="pinyin", reverse=True)
+    // Reverse Order (Dictionaries)
+    const reverseDicts = pinyinGrokSort(dicts, item => item.pinyin, true);
+    console.log(reverseDicts);
+    // [
+    //   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
+    //   { pinyin: "bǎozhàng", meaning: "guarantee" },
+    //   { pinyin: "bǎoyù", meaning: "jade" }
+    // ]
 ```
 
 ## History
 
-This was much more difficult than expected, and took much more time than expected, but turned out great!
+This was much more difficult than expected, and took much, much more time than expected. 
+But in the end it looks so simple, almost laughable simple, and flies like a 
+Raptor SpaceX booster rocket. 🚀
