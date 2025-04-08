@@ -4,16 +4,14 @@
 
 ## Description
 
-A fast sorting algorithm to sort words in Hànyǔ Pīnyīn in alphabetical order, inspired by the "ABC Chinese-English Dictionary" by John DeFrancis.
-
-Hànyǔ Pīnyīn is the romanised writing form of modern, spoken, standard Chinese. The sorting algorithm is intended for Pīnyīn with diacritics (no fall-back to tone numbers.) It is assumed that words are written letter by letter, not by pre-defined syllable blocks.
+A fast sorting algorithm to sort words in Hànyǔ Pīnyīn in alphabetical order, inspired by the "ABC Chinese-English Dictionary" by John DeFrancis. The sorting algorithm is intended for Pīnyīn with diacritics (no fall-back to tone numbers.)
 
 ## The Rules
 
     1. Sort by base characters (ignoring tones, case, and separators) alphabetically.
-    2. Sort by tones: no tone, 1st tone (ā), 2nd tone (á), 3rd tone (ǎ), 4th tone (à).
+    2. Sort by tones: base character (a), 1st tone (ā), 2nd tone (á), 3rd tone (ǎ), 4th tone (à).
     3. Sort u before ü.
-    4. Sort lowercase/mixed case before all uppercase.
+    4. Sort lowercase before uppercase.
     5. Sort by separators: no separator < space < hyphen.
 
 
