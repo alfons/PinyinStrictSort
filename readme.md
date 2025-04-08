@@ -21,7 +21,7 @@ The sort function handles arrays of plain Pīnyīn strings or arrays of dictiona
 
 ## Credits:
 
-- John DeFrancis: Original Pinyin ordering rules.
+- John DeFrancis: Original Pīnyīn ordering rules.
 - Mark Swofford of Banqiao, Taiwan: Preserving and explaining the rules.
 - Alfons Grabher: Idea, concept, prompting, testing, and driving the development of pinyinAbcSort.
 - Grok (xAI): Coding the implementation with flair and precision.
