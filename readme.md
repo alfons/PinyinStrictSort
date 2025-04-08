@@ -103,3 +103,5 @@ The sort handles arrays of plain Pīnyīn strings, or arrays of dictionaries wit
 This was much more difficult than expected, and took much, much more time than expected. 
 But in the end it looks so simple, almost laughable simple, and flies like a 
 Raptor SpaceX booster rocket. 🚀
+
+Alfons, alfonsgrabher.com
