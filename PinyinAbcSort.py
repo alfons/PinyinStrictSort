@@ -66,7 +66,7 @@ print(reverse_dicts)
 ## History
 
 This was much more difficult than expected, and took much, much more time than expected. 
-But in the end it looks so simple, almost laughable simple, and flies like a 
+But in the end it looks so simple, almost laughably simple, and flies like a 
 Raptor SpaceX booster rocket. 🚀
 """
 
