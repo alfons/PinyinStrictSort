@@ -1,11 +1,7 @@
 # PinyinGrokSort (first working version)
 
 I include the first working version for anyone who's interested
-how the implementation looks like. It's still readable for humans 
-and features the slower bubble sort.
-
-This was after 2 days of my own attempts, and half a day of failed attempts 
-with ChatGPT. And after a long chat with Grok (xAi), who eventually nailed it.
+how the implementation looked like.
 
 Have fun studying Chinese with Pīnyīn!
 
