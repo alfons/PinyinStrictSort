@@ -1,5 +1,5 @@
 """
-PinyinGrokSort - A Pinyin sorting module with custom rules.
+PinyinGrokSort - Sort words in Hànyǔ Pīnyīn in alphabetical order (fast)
 
 Description:
 
