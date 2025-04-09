@@ -18,7 +18,7 @@ Since no rules for numbers 0–9 were given, they were added first. All other ch
 
 ## Credits:
 
- - John DeFrancis: Original Pīnyīn alphabetical word order, in passionate
+ - John DeFrancis (1911-2009): Original Pīnyīn alphabetical word order, in passionate
    acknowledgment of the advocates of writing reform Lù Zhuāngzhāng (陆璋章,
    1854–1928), Lǔ Xùn (鲁迅, 1881–1936), Máo Dùn (Shěn Yànbīng, 茅盾, 沈雁冰,
    1896–1981), Wáng Lì (王力, 1900–1988) and Lù Shūxiāng (吕叔湘, 1904–1998),
