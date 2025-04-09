@@ -56,8 +56,8 @@ console.log(pinyinAbcSort(testDicts, "pinyin", true)); //reverse
 
 ## History
 
-This was much more difficult than expected, and took much, much more time than expected. 
-But in the end it looks simple, and flies like a Raptor SpaceX booster rocket. 🚀
+This was much more difficult than expected, and took much longer than expected. 
+But in the end it looks simple, and flies like a SpaceX starship. 🚀
 */
 
 function comparePinyin(w1, w2) {
