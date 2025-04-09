@@ -1,7 +1,9 @@
-# PinyinGrokSort (first working version)
+# PinyinAbcSort (first working version)
 
 I include the first working version for anyone who's interested
-how the implementation looked like.
+how the implementation looked like in the beginning. I had quite
+a few versions before I arrived at the final implementation,
+within 4 days.
 
 Have fun studying Chinese with Pīnyīn!
 
