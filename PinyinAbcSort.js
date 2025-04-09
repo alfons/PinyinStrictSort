@@ -40,43 +40,24 @@
 
 ```javascript
 // Array of Strings
-const words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"];
-const sortedWords = pinyinAbcSort(words);
-console.log(sortedWords); // ["bǎoyù", "bǎozhàng", "Bǎoyǔ"]
+const testWords = ["bǎoyù", "Bǎoyù", "Bǎoyǔ", "bǎozhàng"];
+console.log(pinyinAbcSort(testWords));
+console.log(pinyinAbcSort(testWords, null, true)); //reverse
 
-// Array of Dictionaries
-const dicts = [
+// Array of Dictionaries with default key 'pinyin'
+const testDicts = [
     { pinyin: "bǎozhàng", meaning: "guarantee" },
     { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
     { pinyin: "bǎoyù", meaning: "jade" }
 ];
-const sortedDicts = pinyinAbcSort(dicts, item => item.pinyin);
-console.log(sortedDicts);
-// [
-//   { pinyin: "bǎoyù", meaning: "jade" },
-//   { pinyin: "bǎozhàng", meaning: "guarantee" },
-//   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" }
-// ]
-
-// Reverse Order (Strings)
-const reverseWords = pinyinAbcSort(words, null, true);
-console.log(reverseWords); // ["Bǎoyǔ", "bǎozhàng", "bǎoyù"]
-
-// Reverse Order (Dictionaries)
-const reverseDicts = pinyinAbcSort(dicts, item => item.pinyin, true);
-console.log(reverseDicts);
-// [
-//   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
-//   { pinyin: "bǎozhàng", meaning: "guarantee" },
-//   { pinyin: "bǎoyù", meaning: "jade" }
-// ]
+console.log(pinyinAbcSort(testDicts, "pinyin"));
+console.log(pinyinAbcSort(testDicts, "pinyin", true)); //reverse
 ```
 
 ## History
 
-This was much more difficult than expected, and took much, much longer 
-than expected. But in the end it looks so simple, almost laughably simple, 
-and flies like a SpaceX starship. 🚀
+This was much more difficult than expected, and took much, much more time than expected. 
+But in the end it looks simple, and flies like a Raptor SpaceX booster rocket. 🚀
 */
 
 function comparePinyin(w1, w2) {
@@ -85,26 +66,39 @@ function comparePinyin(w1, w2) {
         "jJkKlLmMnNoōóǒòOŌÓǑÒpPqQrRsStTuūúǔùUŪÚǓÙ" +
         "üǖǘǚǜÜǕǗǙǛvVwWxXyYzZ'- "
     );
-    
+
     const WEIGHTS = {};
     for (let i = 0; i < orderedChars.length; i++) {
         WEIGHTS[orderedChars[i]] = i;
     }
     const OFFSET = orderedChars.length;
 
-    const seq1 = Array.from(w1).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
-    const seq2 = Array.from(w2).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
+    // Step 1: Compare lowercase versions first (tones intact)
+    const lowerW1 = w1.toLowerCase();
+    const lowerW2 = w2.toLowerCase();
+    const seq1Lower = Array.from(lowerW1).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
+    const seq2Lower = Array.from(lowerW2).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
 
-    const len = Math.min(seq1.length, seq2.length);
-    for (let i = 0; i < len; i++) {
-        if (seq1[i] !== seq2[i]) return seq1[i] - seq2[i];
+    const lenLower = Math.min(seq1Lower.length, seq2Lower.length);
+    for (let i = 0; i < lenLower; i++) {
+        if (seq1Lower[i] !== seq2Lower[i]) return seq1Lower[i] - seq2Lower[i];
     }
+    if (seq1Lower.length !== seq2Lower.length) return seq1Lower.length - seq2Lower.length;
 
-    return seq1.length - seq2.length;
+    // Step 2: If lowercase versions are equal, break tie with original case
+    const seq1Orig = Array.from(w1).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
+    const seq2Orig = Array.from(w2).map(c => WEIGHTS[c] ?? (c.charCodeAt(0) + OFFSET));
+    const lenOrig = Math.min(seq1Orig.length, seq2Orig.length);
+    for (let i = 0; i < lenOrig; i++) {
+        if (seq1Orig[i] !== seq2Orig[i]) return seq1Orig[i] - seq2Orig[i];
+    }
+    return seq1Orig.length - seq2Orig.length;
+
 }
 
 function pinyinAbcSort(items, key = null, reverse = false) {
-    const extractor = key ? x => x[key] : x => x;
+    // Simplify key: Accept string directly instead of arrow function
+    const extractor = typeof key === "string" ? x => x[key] : (key || (x => x));
     const sorted = [...items];
     sorted.sort((a, b) => comparePinyin(extractor(a), extractor(b)));
     return reverse ? sorted.reverse() : sorted;
