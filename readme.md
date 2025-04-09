@@ -34,37 +34,32 @@ Since no rules for numbers 0–9 were given, they were added first. All other ch
 ### Python
 
 ```python
+
 # Array of Strings
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
 sorted_words = pinyin_abc_sort(words)
-print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-# Array of Dictionaries
+# Array of Dictionaries (default key="pinyin")
 dicts = [
     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
     {"pinyin": "bǎoyù", "meaning": "jade"}
 ]
-sorted_dicts = pinyin_abc_sort(dicts, key=lambda item: item["pinyin"])
-print(sorted_dicts)
-# [
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
-# ]
+sorted_dicts = pinyin_abc_sort(dicts)
+
+# Array of Dictionaries (custom key)
+dicts = [
+    {"hp": "bǎozhàng", "meaning": "guarantee"},
+    {"hp": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"hp": "bǎoyù", "meaning": "jade"}
+]
+sorted_dicts = pinyin_abc_sort(dicts, key="hp")
 
 # Reverse Order (Strings)
 reverse_words = pinyin_abc_sort(words, reverse=True)
-print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 
 # Reverse Order (Dictionaries)
-reverse_dicts = pinyin_abc_sort(dicts, key=lambda item: item["pinyin"], reverse=True)
-print(reverse_dicts)
-# [
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
-# ]
+reverse_dicts = pinyin_abc_sort(dicts, reverse=True)
 ```
 
 ### Javascript
