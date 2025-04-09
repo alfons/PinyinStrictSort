@@ -33,7 +33,7 @@ The sort function handles arrays of plain Pīnyīn strings or arrays of dictiona
 # Array of Strings
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
 sorted_words = pinyin_abc_sort(words)
-print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+print(sorted_words) 
 
 # Array of Dictionaries
 dicts = [
@@ -43,11 +43,6 @@ dicts = [
 ]
 sorted_dicts = pinyin_abc_sort(dicts, key="pinyin")
 print(sorted_dicts)
-# [
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
-# ]
 
 # Reverse Order (Strings)
 reverse_words = pinyin_abc_sort(words, reverse=True)
@@ -56,11 +51,6 @@ print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 # Reverse Order (Dictionaries)
 reverse_dicts = pinyin_abc_sort(dicts, key="pinyin", reverse=True)
 print(reverse_dicts)
-# [
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
-# ]
 ```
 
 ## History
