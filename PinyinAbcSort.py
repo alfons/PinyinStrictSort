@@ -43,7 +43,7 @@
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
 sorted_words = pinyin_abc_sort(words)
 
-# Array of Dictionaries (default key="pinyin")
+# Array of Dictionaries
 dicts = [
     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
@@ -89,17 +89,10 @@ def _compare_pinyin(w1, w2):
 
     return (seq1 > seq2) - (seq1 < seq2)
 
-def pinyin_abc_sort(items, key="pinyin", reverse=False):
-    def extract(item):
-        if isinstance(item, dict):
-            return item.get(key, "")
-        return item  # assume it's a string
-
+def pinyin_abc_sort(items, key=None, reverse=False):
+    extractor = (lambda x: x[key]) if key else lambda x: x
     items_list = list(items)
-    items_list.sort(
-        key=cmp_to_key(lambda a, b: _compare_pinyin(extract(a), extract(b))),
-        reverse=reverse
-    )
+    items_list.sort(key=cmp_to_key(lambda a, b: _compare_pinyin(extractor(a), extractor(b))), reverse=reverse)
     return items_list
 
 if __name__ == "__main__":
