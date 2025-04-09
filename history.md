@@ -3,7 +3,7 @@
 I include the first working version for anyone who's interested
 how the implementation looked like in the beginning. I had quite
 a few versions before I arrived at the final implementation,
-within 4 days.
+which took me several days.
 
 Have fun studying Chinese with Pīnyīn!
 
@@ -34,7 +34,7 @@ def compare_pinyin(word1, word2):
                  .replace('ū', 'u').replace('ú', 'u').replace('ǔ', 'u').replace('ù', 'u')\
                  .replace('ǖ', 'ü').replace('ǘ', 'ü').replace('ǚ', 'ü').replace('ǜ', 'ü')
         base2 = c2.replace('ā', 'a').replace('á', 'a').replace('ǎ', 'a').replace('à', 'a')\
-                 .replace('ē', 'e').replace('é INVISIBLE SPACE HERE', 'e').replace('ě', 'e').replace('è', 'e')\
+                 .replace('ē', 'e').replace('é', 'e').replace('ě', 'e').replace('è', 'e')\
                  .replace('ī', 'i').replace('í', 'i').replace('ǐ', 'i').replace('ì', 'i')\
                  .replace('ō', 'o').replace('ó', 'o').replace('ǒ', 'o').replace('ò', 'o')\
                  .replace('ū', 'u').replace('ú', 'u').replace('ǔ', 'u').replace('ù', 'u')\
