@@ -34,70 +34,58 @@ Since no rules for numbers 0–9 were given, they were added first. All other ch
 ### Python
 
 ```python
-
 # Array of Strings
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
 sorted_words = pinyin_abc_sort(words)
+print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-# Array of Dictionaries (default key="pinyin")
+# Array of Dictionaries
 dicts = [
     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
     {"pinyin": "bǎoyù", "meaning": "jade"}
 ]
-sorted_dicts = pinyin_abc_sort(dicts)
-
-# Array of Dictionaries (custom key)
-dicts = [
-    {"hp": "bǎozhàng", "meaning": "guarantee"},
-    {"hp": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
-    {"hp": "bǎoyù", "meaning": "jade"}
-]
-sorted_dicts = pinyin_abc_sort(dicts, key="hp")
+sorted_dicts = pinyin_abc_sort(dicts, key="pinyin")
+print(sorted_dicts)
+# [
+#   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
+#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
+# ]
 
 # Reverse Order (Strings)
 reverse_words = pinyin_abc_sort(words, reverse=True)
+print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 
 # Reverse Order (Dictionaries)
-reverse_dicts = pinyin_abc_sort(dicts, reverse=True)
+reverse_dicts = pinyin_abc_sort(dicts, key="pinyin", reverse=True)
+print(reverse_dicts)
+# [
+#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
+#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
+#   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
+# ]
 ```
 
 ### Javascript
 
 ```javascript
 // Array of Strings
-const words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"];
-const sortedWords = pinyinAbcSort(words);
-console.log(sortedWords); // ["bǎoyù", "bǎozhàng", "Bǎoyǔ"]
+const testWords = ["bǎoyù", "Bǎoyù", "Bǎoyǔ", "bǎozhàng"];
+console.log(pinyinAbcSort(testWords));
+console.log(pinyinAbcSort(testWords, null, true)); //reverse
 
-// Array of Dictionaries
-const dicts = [
+// Array of Dictionaries with default key 'pinyin'
+const testDicts = [
     { pinyin: "bǎozhàng", meaning: "guarantee" },
     { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
     { pinyin: "bǎoyù", meaning: "jade" }
 ];
-const sortedDicts = pinyinAbcSort(dicts, item => item.pinyin);
-console.log(sortedDicts);
-// [
-//   { pinyin: "bǎoyù", meaning: "jade" },
-//   { pinyin: "bǎozhàng", meaning: "guarantee" },
-//   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" }
-// ]
-
-// Reverse Order (Strings)
-const reverseWords = pinyinAbcSort(words, null, true);
-console.log(reverseWords); // ["Bǎoyǔ", "bǎozhàng", "bǎoyù"]
-
-// Reverse Order (Dictionaries)
-const reverseDicts = pinyinAbcSort(dicts, item => item.pinyin, true);
-console.log(reverseDicts);
-// [
-//   { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
-//   { pinyin: "bǎozhàng", meaning: "guarantee" },
-//   { pinyin: "bǎoyù", meaning: "jade" }
-// ]
+console.log(pinyinAbcSort(testDicts, "pinyin"));
+console.log(pinyinAbcSort(testDicts, "pinyin", true)); //reverse
 ```
 
 ## History
 
-This was much more difficult than expected, and took much, much longer than expected. But in the end it looks so simple, almost laughably simple, and flies like a SpaceX starship. 🚀
+This was much more difficult than expected, and took much, much more time than expected. 
+But in the end it looks simple, and flies like a Raptor SpaceX booster rocket. 🚀
