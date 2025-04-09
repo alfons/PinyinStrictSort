@@ -69,21 +69,31 @@ This was much more difficult than expected, and took much, much more time than e
 But in the end it looks so simple, almost laughably simple, and flies like a 
 Raptor SpaceX booster rocket. 🚀
 """
-
 from functools import cmp_to_key
 
 def _compare_pinyin(w1, w2):
     ordered_chars = (
-        "aāáǎàAĀÁǍÀbBcCdDeēéěèEĒÉĚÈfFgGhHiīíǐìIĪÍǏÌ"
-        "jJkKlLmMnNoōóǒòOŌÓǑÒpPqQrRsStTuūúǔùUŪÚǓÙ"
-        "üǖǘǚǜÜǕǗǙǛvVwWxXyYzZ'- "
+        "0123456789"
+        "aāáǎàbBcCdDeēéěèfFgGhHiīíǐìjJkKlLmMnNoōóǒòpPqQrRsStTuūúǔù"
+        "üǖǘǚǜvVwWxXyYzZ'- "
     )
     WEIGHTS = {char: i for i, char in enumerate(ordered_chars)}
+    OFFSET = len(ordered_chars)  # Offset for unmapped chars
 
-    seq1 = [WEIGHTS.get(c, 999) for c in w1]
-    seq2 = [WEIGHTS.get(c, 999) for c in w2]
+    # Step 1: Convert to lowercase for primary comparison (preserving tones)
+    lower_w1 = w1.lower()
+    lower_w2 = w2.lower()
+    seq1 = [WEIGHTS.get(c, ord(c) + OFFSET) for c in lower_w1]
+    seq2 = [WEIGHTS.get(c, ord(c) + OFFSET) for c in lower_w2]
+    cmp_lower = (seq1 > seq2) - (seq1 < seq2)
+
+    # Step 2: If lowercase versions are equal, use original strings for case tiebreaker
+    if cmp_lower == 0:
+        seq1_orig = [WEIGHTS.get(c, ord(c) + OFFSET) for c in w1]
+        seq2_orig = [WEIGHTS.get(c, ord(c) + OFFSET) for c in w2]
+        return (seq1_orig > seq2_orig) - (seq1_orig < seq2_orig)
     
-    return (seq1 > seq2) - (seq1 < seq2)
+    return cmp_lower
 
 def pinyin_abc_sort(items, key=None, reverse=False):
     extractor = (lambda x: x[key]) if key else lambda x: x
@@ -93,43 +103,39 @@ def pinyin_abc_sort(items, key=None, reverse=False):
 
 if __name__ == "__main__":
     test_words = [
-    # Tones (all variants)
-    "baozi", "bāozi", "báozi", "bǎozi", "bàozi",
-    # Case (mixed and full uppercase)
-    "bǎozi", "Bǎozi", "BǍOZI",
-    # Duplicates
-    "bǎozi", "bǎozi", "Bǎozi",
-    # U vs Ü
-    "lù", "lü", "Lù", "Lǚ",
-    # Separators (space, hyphen, apostrophe)
-    "bǎo", "bǎo an", "bǎo-an", "bǎo'an",
-    # Length and prefix matches
-    "bǎozhǎng", "bǎozhàng", "bǎozhàngjiāndū",
-    # Alphabetical transitions
-    "bǎoyù", "bǎozàng", "bǎpa", "bǎshǐ",
-    # Mixed tones and case
-    "bǎOYÙ", "Bǎoyù", "bĀozì",
-    # Edge chars (start/end of alphabet)
-    "ǎ", "à", "zǐ", "Zǐ",
-    # Separator-heavy
-    "bǎo an-xiǎo", "bǎo'an xiǎo",
-    # Tricky ü with tones
-    "nǚ", "Nǚ", "nǜrén",
-    # In ABC, hyphens and spaces don’t affect the sort order 
-    "lìgōng","lǐ-gōng"
+        # Tones (all variants)
+        "baozi", "bāozi", "báozi", "bǎozi", "bàozi",
+        # Case (mixed and full uppercase)
+        "bǎozi", "Bǎozi", "BǍOZI",
+        # Duplicates
+        "bǎozi", "bǎozi", "Bǎozi",
+        # U vs Ü
+        "lù", "lü", "Lù", "Lǚ",
+        # Separators (space, hyphen, apostrophe)
+        "bǎo", "bǎo an", "bǎo-an", "bǎo'an",
+        # Length and prefix matches
+        "bǎozhǎng", "bǎozhàng", "bǎozhàngjiāndū",
+        # Alphabetical transitions
+        "bǎoyù", "bǎozàng", "bǎpa", "bǎshǐ",
+        # Mixed tones and case
+        "bǎOYÙ", "Bǎoyù", "bĀozì", "Bǎoyǔ",
+        # Edge chars (start/end of alphabet)
+        "ǎ", "à", "zǐ", "Zǐ",
+        # Separator-heavy
+        "bǎo an-xiǎo", "bǎo'an xiǎo",
+        # Tricky ü with tones
+        "nǚ", "Nǚ", "nǜrén",
+        # Hyphens and spaces don’t affect sort order
+        "lìgōng", "lǐ-gōng",
+        # Odd friends (non-Pīnyīn chars)
+        "bǎo#", "bǎo$", "bǎo©"
     ]
-    sorted_words = pinyin_abc_sort(test_words, reverse = False)
+    sorted_words = pinyin_abc_sort(test_words, reverse=False)
     print("\n".join(sorted_words))
-    test_dicts = [
-    {"hp": "bǎozhàng", "meaning": "guarantee"},
-    {"hp": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
-    {"hp": "bǎoyù", "meaning": "jade"},
-    {"hp": "baozi", "meaning": ""},
-    {"hp": "bāozi", "meaning": ""},
-    {"hp": "báozi", "meaning": ""},
-    {"hp": "bǎozi", "meaning": ""},
-    {"hp": "bàozi", "meaning": ""}
+    dicts = [
+    {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+    {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"pinyin": "bǎoyù", "meaning": "jade"}
     ]
-    sorted_dicts = pinyin_abc_sort(test_dicts, key="hp")
-    for dict in sorted_dicts:
-        print(f"{dict['hp']} : {dict['meaning']}")
+    sorted_dicts = pinyin_abc_sort(dicts, key="pinyin")
+    print(sorted_dicts)
