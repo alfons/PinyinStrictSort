@@ -42,34 +42,28 @@
 # Array of Strings
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
 sorted_words = pinyin_abc_sort(words)
-print(sorted_words)  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-# Array of Dictionaries
+# Array of Dictionaries (default key="pinyin")
 dicts = [
     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
     {"pinyin": "bǎoyù", "meaning": "jade"}
 ]
-sorted_dicts = pinyin_abc_sort(dicts, key=lambda item: item["pinyin"])
-print(sorted_dicts)
-# [
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'}
-# ]
+sorted_dicts = pinyin_abc_sort(dicts)
+
+# Array of Dictionaries (custom key)
+dicts = [
+    {"hp": "bǎozhàng", "meaning": "guarantee"},
+    {"hp": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"hp": "bǎoyù", "meaning": "jade"}
+]
+sorted_dicts = pinyin_abc_sort(dicts, key="hp")
 
 # Reverse Order (Strings)
 reverse_words = pinyin_abc_sort(words, reverse=True)
-print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 
 # Reverse Order (Dictionaries)
-reverse_dicts = pinyin_abc_sort(dicts, key=lambda item: item["pinyin"], reverse=True)
-print(reverse_dicts)
-# [
-#   {'pinyin': 'Bǎoyǔ', 'meaning': 'Bao Yu (name)'},
-#   {'pinyin': 'bǎozhàng', 'meaning': 'guarantee'},
-#   {'pinyin': 'bǎoyù', 'meaning': 'jade'}
-# ]
+reverse_dicts = pinyin_abc_sort(dicts, reverse=True)
 ```
 
 ## History
@@ -95,10 +89,17 @@ def _compare_pinyin(w1, w2):
 
     return (seq1 > seq2) - (seq1 < seq2)
 
-def pinyin_abc_sort(items, key=None, reverse=False):
-    extractor = (lambda x: x[key]) if key else lambda x: x
+def pinyin_abc_sort(items, key="pinyin", reverse=False):
+    def extract(item):
+        if isinstance(item, dict):
+            return item.get(key, "")
+        return item  # assume it's a string
+
     items_list = list(items)
-    items_list.sort(key=cmp_to_key(lambda a, b: _compare_pinyin(extractor(a), extractor(b))), reverse=reverse)
+    items_list.sort(
+        key=cmp_to_key(lambda a, b: _compare_pinyin(extract(a), extract(b))),
+        reverse=reverse
+    )
     return items_list
 
 if __name__ == "__main__":
@@ -130,3 +131,10 @@ if __name__ == "__main__":
     ]
     sorted_words = pinyin_abc_sort(test_words, reverse = False)
     print("\n".join(sorted_words))
+    dicts = [
+    {"hp": "bǎozhàng", "meaning": "guarantee"},
+    {"hp": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"hp": "bǎoyù", "meaning": "jade"}
+    ]
+    sorted_dicts = pinyin_abc_sort(dicts, key="hp")
+    print(sorted_dicts)
