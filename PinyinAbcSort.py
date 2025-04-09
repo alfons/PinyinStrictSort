@@ -3,9 +3,14 @@
 
 ## Description:
 
-This project implements sorting Pīnyīn words into alphabetical word order, based on the rules outlined by John DeFrancis in ABC Chinese-English Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries.
+ This project implements sorting Pīnyīn words into alphabetical word order,
+ based on the rules outlined by John DeFrancis in ABC Chinese-English
+ Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries.
 
-The sorting algorithm compares words letter by letter, not syllable by syllable. This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin alphabet — the key insight and algorithm design choice behind this implementation.
+ The sorting algorithm compares words letter by letter, not syllable by
+ syllable. This approach reflects the fact that Hànyǔ Pīnyīn is written using
+ the Latin alphabet — the key insight and algorithm design choice behind this
+ implementation.
 
 ## The ordering rules are:
 
@@ -15,7 +20,8 @@ The sorting algorithm compares words letter by letter, not syllable by syllable.
  4. Case: lowercase and mixed-case before uppercase
  5. Separators: apostrophe < hyphen < space
 
-Since no rules for numbers 0–9 were given, they were added first. All other characters are appended according to their Unicode value.
+ Since no rules for numbers 0–9 were given, they were added first. All other
+ characters are appended according to their Unicode value.
 
 ## Credits:
 
@@ -58,9 +64,10 @@ print(reverse_dicts)
 
 ## History
 
-This was much more difficult than expected, and took much, much more time than expected. 
-But in the end it looks simple, and flies like a Raptor SpaceX booster rocket. 🚀
+This was much more difficult than expected, and took much longer than expected. 
+But in the end it looks simple, and flies like a SpaceX starship. 🚀
 """
+
 from functools import cmp_to_key
 
 def _compare_pinyin(w1, w2):
