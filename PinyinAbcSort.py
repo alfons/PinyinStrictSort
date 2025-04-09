@@ -131,4 +131,5 @@ if __name__ == "__main__":
     {"hp": "bàozi", "meaning": ""}
     ]
     sorted_dicts = pinyin_abc_sort(test_dicts, key="hp")
-    print(sorted_dicts)
+    for dict in sorted_dicts:
+        print(f"{dict['hp']} : {dict['meaning']}")
