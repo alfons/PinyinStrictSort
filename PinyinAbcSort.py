@@ -66,8 +66,7 @@ print(reverse_dicts)
 ## History
 
 This was much more difficult than expected, and took much, much more time than expected. 
-But in the end it looks so simple, almost laughably simple, and flies like a 
-Raptor SpaceX booster rocket. 🚀
+But in the end it looks simple, and flies like a Raptor SpaceX booster rocket. 🚀
 """
 from functools import cmp_to_key
 
