@@ -16,6 +16,8 @@ The sorting algorithm compares words letter by letter, not syllable by syllable.
 
 Since no rules for numbers 0–9 were given, they were added first. All other characters are appended according to their Unicode value.
 
+Link to Wiki about the differences in word order between PinyinAbcSort and the ABC Chinese-English Dictionary: [PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
+
 ## Credits:
 
  - John DeFrancis (1911-2009): Original Pīnyīn alphabetical word order, in passionate
