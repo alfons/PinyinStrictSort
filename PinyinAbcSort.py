@@ -71,11 +71,8 @@ But in the end it looks simple, and flies like a SpaceX starship. 🚀
 from functools import cmp_to_key
 
 def _compare_pinyin(w1, w2):
-    ordered_chars = (
-        "0123456789"
-        "aāáǎàbBcCdDeēéěèfFgGhHiīíǐìjJkKlLmMnNoōóǒòpPqQrRsStTuūúǔù"
-        "üǖǘǚǜvVwWxXyYzZ'- "
-    )
+    # Uppercase letters can be excluded because of the ord(c) + OFFSET fallback
+    ordered_chars = "0123456789aāáǎàbcdeēéěèfghiīíǐìjklmnoōóǒòpqrsstuūúǔùüǖǘǚǜvwxyz'- "
     WEIGHTS = {char: i for i, char in enumerate(ordered_chars)}
     OFFSET = len(ordered_chars)  # Offset for unmapped chars
 
