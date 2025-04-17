@@ -2,16 +2,16 @@
 
 ## Description:
 
-This project implements sorting Pīnyīn words into alphabetical word order, based on the rules outlined by John DeFrancis in ABC Chinese-English Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries.
+This project implements sorting Pīnyīn words into alphabetical word order, inspired by the rules outlined by John DeFrancis in ABC Chinese-English Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries.
 
 The sorting algorithm compares words letter by letter, not syllable by syllable. This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin alphabet — the key insight and algorithm design choice behind this implementation.
 
 ## The ordering rules are:
 
- 1. Alphabetical order: Base characters (a–z), compared letter by letter
- 2. u before ü, U before Ü
- 3. Tones: 0 < 1 < 2 < 3 < 4
- 4. Case: lowercase and mixed-case before uppercase
+ 1. Alphabetical order: base letters (a–z) including tones
+ 2. Tones 0 < 1 < 2 < 3 < 4 (for example a < ā < á < ǎ < à)
+ 3. u before ü, U before Ü
+ 4. lowercase and mixed-case before uppercase
  5. Separators: apostrophe < hyphen < space
 
 Since no rules for numbers 0–9 were given, they were added first. All other characters are appended according to their Unicode value.
