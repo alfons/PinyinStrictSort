@@ -2,33 +2,45 @@
 
 ## Description:
 
-This project implements sorting Pīnyīn words into alphabetical word order, initially inspired by the rules outlined by John DeFrancis in ABC Chinese-English Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries.
+This project implements sorting Pīnyīn words into strict alphabetical order, 
+initially inspired by by John DeFrancis in ABC Chinese-English Dictionary, 
+Page xiii, Reader’s Guide, I. Arrangement of Entries.
 
-The PinyinAbcSort sorting algorithm compares words letter by letter, not syllable by syllable. This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin alphabet — the key insight and algorithm design choice behind this implementation.
+However, PinyinAbcSort is much more straightforward, and stricter. The 
+sorting algorithm
+
+1. compares words letter by letter, not syllable by syllable. 
+2. respects diacritics (tone marks) as part of the letter, not merely 
+as tiebreaker.
+
+This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin 
+alphabet — the key insight behind this implementation.
 
 ## The ordering rules are:
 
- 1. Alphabetical order: base letters (a–z) including Pīnyīn tone markers
- 2. Pīnyīn tone markers sorting order 0 < 1 < 2 < 3 < 4 (for example, a < ā < á < ǎ < à)
+ 1. Alphabetical order, including diacritics (tone marks)
+ 2. Tone marks sorting order 0 < 1 < 2 < 3 < 4 (for example, a < ā < á < ǎ < à)
  3. u before ü, U before Ü
  4. lowercase and mixed-case before uppercase
  5. Separators: apostrophe < hyphen < space
 
-Since no rules for numbers 0–9 were given, numbers sort before letters. All other characters are appended according to their Unicode value.
+Since no rules for numbers 0–9 were given, numbers sort before letters. All 
+other characters sort behind, according to their Unicode value.
 
-Link to Wiki about the differences in word order between PinyinAbcSort and the ABC Chinese-English Dictionary: [PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
+Link to Wiki about the differences in word order between PinyinAbcSort and the 
+ABC Chinese-English Dictionary: 
+[PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
 
 ## Credits and Acknowledgements:
 
- - John DeFrancis (1911-2009): Original Pīnyīn alphabetical word order, in passionate
-   acknowledgment of the advocates of writing reform Lù Zhuāngzhāng (陆璋章,
-   1854–1928), Lǔ Xùn (鲁迅, 1881–1936), Máo Dùn (Shěn Yànbīng, 茅盾, 沈雁冰,
-   1896–1981), Wáng Lì (王力, 1900–1988) and Lù Shūxiāng (吕叔湘, 1904–1998),
-   and Zhōu Yǒuguāng (周有光, 1905–2017).
- - Mark Swofford of Banqiao, Taiwan: summarised the rules outlined by John DeFrancis
-   on his blog, thus keeping them available to the world.
- - Alfons Grabher: Idea, concept, prompting, testing, and driving the
-   development of pinyinAbcSort.
+ - John DeFrancis (1911-2009), in passionate acknowledgment of the advocates 
+of writing reform Lù Zhuāngzhāng (陆璋章,1854–1928), Lǔ Xùn (鲁迅, 1881–1936), 
+Máo Dùn (Shěn Yànbīng, 茅盾, 沈雁冰, 1896–1981), Wáng Lì (王力, 1900–1988) and 
+Lù Shūxiāng (吕叔湘, 1904–1998), and Zhōu Yǒuguāng (周有光, 1905–2017).
+ - Mark Swofford of Bǎnqiáo, Táiwān: summarised the rules outlined by 
+John DeFrancis on his blog, thus keeping them available to the world.
+ - Alfons Grabher: Idea, concept, coding, prompting, testing, and driving the 
+development of pinyinAbcSort.
  - Grok (xAI), ChatGPT 4o: Coding the implementation with flair and precision.
 
 ## Usage 
@@ -77,7 +89,28 @@ console.log(pinyinAbcSort(testDicts, "pinyin"));
 console.log(pinyinAbcSort(testDicts, "pinyin", true)); //reverse
 ```
 
+## The difference, for example
+
+| John DeFrancis et.al.     | PinyinAbcSort              |
+|---------------------------|----------------------------|
+| zhuānzhí                  | zhuānzhí                   |
+| zhuānzhǐ                  | zhuānzhí bǎomǔ             |
+| zhuānzhì                  | zhuānzhí shūjì             |
+| zhuānzhì                  | zhuānzhǐ                   |
+| zhuǎnzhí                  | zhuānzhì                   |
+| zhuǎnzhì                  | zhuānzhì                   |
+| zhuānzhí bǎomǔ            | zhuānzhìzhǔyì              |
+| zhuānzhì júnzhǔ           | zhuānzhì júnzhǔ            |
+| zhuānzhì qǐlai            | zhuānzhì qǐlai             |
+| zhuānzhì réngé            | zhuānzhì réngé             |
+| zhuānzhí shūjì            | zhuānzhì xìnggé            |
+| zhuānzhì xìnggé           | zhuānzhì zhēngzhì          |
+| zhuānzhì zhèngfǔ          | zhuānzhì zhèngfǔ           |
+| zhuānzhì zhèngtǐ          | zhuānzhì zhèngtǐ           |
+| zhuānzhì zhēngzhì         | zhuǎnzhí                   |
+| zhuānzhìzhǔyì             | zhuǎnzhì                   |
+
 ## History
 
-This was much more difficult than expected, and took much longer than expected. 
-But in the end it looks simple, and flies like a SpaceX starship. 🚀
+This was much more difficult than expected, and took much longer than 
+expected. But in the end it looks simple, and flies like a SpaceX starship. 🚀
