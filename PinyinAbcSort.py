@@ -3,28 +3,33 @@
 
 ## Description:
 
-This project implements sorting Pīnyīn words into alphabetical word order, 
-initially inspired by the rules outlined by John DeFrancis in ABC Chinese-English Dictionary, 
-Page xiii, Reader’s Guide, I. Arrangement of Entries.
+Sort Chinese (Hànyǔ) Pīnyīn words into strict alphabetical order.
 
-The PinyinAbcSort sorting algorithm compares words letter by letter, 
-not syllable by syllable. This approach reflects the fact that Hànyǔ Pīnyīn 
-is written using the Latin alphabet — the key insight and algorithm design 
-choice behind this implementation.
+1. Compare words letter by letter, not syllable by syllable. 
+2. Respect diacritics (tone marks) as part of the letter, not merely 
+as tiebreaker.
+
+This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin 
+alphabet — the key insight behind this implementation.
 
 ## The ordering rules are:
 
- 1. Alphabetical order: base letters (a–z) including Pīnyīn tone markers
- 2. Pīnyīn tone markers sorting order 0 < 1 < 2 < 3 < 4 (for example, a < ā < á < ǎ < à)
+ 1. Alphabetical order, including diacritics (tone marks)
+ 2. Tone marks sorting order 0 < 1 < 2 < 3 < 4 (for example, a < ā < á < ǎ < à)
  3. u before ü, U before Ü
  4. lowercase and mixed-case before uppercase
  5. Separators: apostrophe < hyphen < space
 
-Since no rules for numbers 0–9 were given, numbers sort before letters. 
-All other characters are appended according to their Unicode value.
+Since no rules for numbers 0–9 were given, numbers sort before letters. All 
+other characters sort behind, according to their Unicode value.
+
+This project was initially inspired by by John DeFrancis in ABC Chinese-English 
+Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries, but sorting
+by PinyinAbcSort is much stricter and more straightforward.
 
 Link to Wiki about the differences in word order between PinyinAbcSort and the 
-ABC Chinese-English Dictionary: [PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
+ABC Chinese-English Dictionary: 
+[PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
 
 ## Credits and Acknowledgements:
 
