@@ -2,15 +2,10 @@
 
 ## Description:
 
-This project implements sorting Pīnyīn words into strict alphabetical order, 
-initially inspired by by John DeFrancis in ABC Chinese-English Dictionary, 
-Page xiii, Reader’s Guide, I. Arrangement of Entries.
+Sort Chinese (Hànyǔ) Pīnyīn words into strict alphabetical order.
 
-However, PinyinAbcSort is much more straightforward, and stricter. The 
-sorting algorithm
-
-1. compares words letter by letter, not syllable by syllable. 
-2. respects diacritics (tone marks) as part of the letter, not merely 
+1. Compare words letter by letter, not syllable by syllable. 
+2. Respect diacritics (tone marks) as part of the letter, not merely 
 as tiebreaker.
 
 This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin 
@@ -26,6 +21,10 @@ alphabet — the key insight behind this implementation.
 
 Since no rules for numbers 0–9 were given, numbers sort before letters. All 
 other characters sort behind, according to their Unicode value.
+
+This project was initially inspired by by John DeFrancis in ABC Chinese-English 
+Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries, but sorting
+by PinyinAbcSort is much stricter and more straightforward.
 
 Link to Wiki about the differences in word order between PinyinAbcSort and the 
 ABC Chinese-English Dictionary: 
