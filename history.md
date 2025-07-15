@@ -1,4 +1,4 @@
-# PinyinAbcSort (first working version)
+# PinyinStrictSort (first working version)
 
 I include the first working version for anyone who's interested
 how the implementation looked like in the beginning. I had quite
