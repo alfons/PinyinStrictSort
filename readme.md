@@ -1,4 +1,4 @@
-# PinyinAbcSort - Sort Hànyǔ Pīnyīn in alphabetical order (fast)
+# PinyinStrictSort - Sort Hànyǔ Pīnyīn in alphabetical order (fast)
 
 ## Description:
 
@@ -18,19 +18,18 @@ alphabet — the key insight behind this implementation.
  3. u before ü, U before Ü
  4. lowercase and mixed-case before uppercase
  5. Separators: apostrophe < hyphen < space
-
-Since no rules for numbers 0–9 were given, numbers sort before letters. All 
-other characters sort behind, according to their Unicode value.
+ 6. Numbers sort before letters.
+ 7. All other characters sort behind, according to their Unicode value.
 
 This project was initially inspired by by John DeFrancis in ABC Chinese-English 
 Dictionary, Page xiii, Reader’s Guide, I. Arrangement of Entries, but sorting
-by PinyinAbcSort is much stricter and more straightforward.
+by PinyinStrictSort is much stricter and more straightforward.
 
-Link to Wiki about the differences in word order between PinyinAbcSort and the 
+Link to Wiki about the differences in word order between PinyinStrictSort and the 
 ABC Chinese-English Dictionary: 
-[PinyinAbcSort Wiki](https://github.com/alfons/PinyinAbcSort/wiki)
+[PinyinStrictSort Wiki](https://github.com/alfons/PinyinStrictSort/wiki)
 
-## Credits and Acknowledgements:
+## Acknowledgements and Credits:
 
  - John DeFrancis (1911-2009), in passionate acknowledgment of the advocates 
 of writing reform Lù Zhuāngzhāng (陆璋章,1854–1928), Lǔ Xùn (鲁迅, 1881–1936), 
@@ -39,7 +38,7 @@ Lù Shūxiāng (吕叔湘, 1904–1998), and Zhōu Yǒuguāng (周有光, 1905�
  - Mark Swofford of Bǎnqiáo, Táiwān: summarised the rules outlined by 
 John DeFrancis on his blog, thus keeping them available to the world.
  - Alfons Grabher: Idea, concept, coding, prompting, testing, and driving the 
-development of pinyinAbcSort.
+development of PinyinStrictSort.
  - Grok (xAI), ChatGPT 4o: Coding the implementation with flair and precision.
 
 ## Usage 
@@ -49,7 +48,7 @@ development of pinyinAbcSort.
 ```python
 # Array of Strings
 words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
-sorted_words = pinyin_abc_sort(words)
+sorted_words = pinyin_strict_sort(words)
 print(sorted_words)
 
 # Array of Dictionaries
@@ -58,15 +57,15 @@ dicts = [
     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
     {"pinyin": "bǎoyù", "meaning": "jade"}
 ]
-sorted_dicts = pinyin_abc_sort(dicts, key="pinyin")
+sorted_dicts = pinyin_strict_sort(dicts, key="pinyin")
 print(sorted_dicts)
 
 # Reverse Order (Strings)
-reverse_words = pinyin_abc_sort(words, reverse=True)
+reverse_words = pinyin_strict_sort(words, reverse=True)
 print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 
 # Reverse Order (Dictionaries)
-reverse_dicts = pinyin_abc_sort(dicts, key="pinyin", reverse=True)
+reverse_dicts = pinyin_strict_sort(dicts, key="pinyin", reverse=True)
 print(reverse_dicts)
 ```
 
@@ -75,8 +74,8 @@ print(reverse_dicts)
 ```javascript
 // Array of Strings
 const testWords = ["bǎoyù", "Bǎoyù", "Bǎoyǔ", "bǎozhàng"];
-console.log(pinyinAbcSort(testWords));
-console.log(pinyinAbcSort(testWords, null, true)); //reverse
+console.log(PinyinStrictSort(testWords));
+console.log(PinyinStrictSort(testWords, null, true)); //reverse
 
 // Array of Dictionaries with default key 'pinyin'
 const testDicts = [
@@ -84,13 +83,13 @@ const testDicts = [
     { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
     { pinyin: "bǎoyù", meaning: "jade" }
 ];
-console.log(pinyinAbcSort(testDicts, "pinyin"));
-console.log(pinyinAbcSort(testDicts, "pinyin", true)); //reverse
+console.log(PinyinStrictSort(testDicts, "pinyin"));
+console.log(PinyinStrictSort(testDicts, "pinyin", true)); //reverse
 ```
 
 ## The difference, for example
 
-| John DeFrancis et.al.     | PinyinAbcSort              |
+| John DeFrancis et.al.     | PinyinStrictSort              |
 |---------------------------|----------------------------|
 | zhuānzhí                  | zhuānzhí                   |
 | zhuānzhǐ                  | zhuānzhí bǎomǔ             |
