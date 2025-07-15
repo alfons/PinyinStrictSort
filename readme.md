@@ -46,23 +46,6 @@ development of PinyinStrictSort.
 ### Python
 
 ```python
-# Array of Strings
-words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
-sorted_words = pinyin_strict_sort(words)
-print(sorted_words)
-
-# Array of Dictionaries
-dicts = [
-    {"pinyin": "bǎozhàng", "meaning": "guarantee"},
-    {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
-    {"pinyin": "bǎoyù", "meaning": "jade"}
-]
-sorted_dicts = pinyin_strict_sort(dicts, key="pinyin")
-print(sorted_dicts)
-## Usage
-
-### Python
-```python
 from pinyin_strict_sort import pinyin_strict_sort
 
 # Sort strings
