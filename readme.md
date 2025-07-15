@@ -59,32 +59,54 @@ dicts = [
 ]
 sorted_dicts = pinyin_strict_sort(dicts, key="pinyin")
 print(sorted_dicts)
+## Usage
 
-# Reverse Order (Strings)
-reverse_words = pinyin_strict_sort(words, reverse=True)
-print(reverse_words)  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+### Python
+```python
+from pinyin_strict_sort import pinyin_strict_sort
 
-# Reverse Order (Dictionaries)
-reverse_dicts = pinyin_strict_sort(dicts, key="pinyin", reverse=True)
-print(reverse_dicts)
+# Sort strings
+words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
+print(pinyin_strict_sort(words))  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+
+# Sort dictionaries
+dicts = [
+    {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+    {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"pinyin": "bǎoyù", "meaning": "jade"}
+]
+print(pinyin_strict_sort(dicts, key="pinyin"))
+
+# Reverse order
+print(pinyin_strict_sort(words, reverse=True))  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
 ```
 
 ### Javascript
 
 ```javascript
-// Array of Strings
-const testWords = ["bǎoyù", "Bǎoyù", "Bǎoyǔ", "bǎozhàng"];
-console.log(PinyinStrictSort(testWords));
-console.log(PinyinStrictSort(testWords, null, true)); //reverse
+// Sort strings
+const words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"];
+console.log(pinyinStrictSort(words)); // ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
 
-// Array of Dictionaries with default key 'pinyin'
-const testDicts = [
+// Sort objects
+const dicts = [
     { pinyin: "bǎozhàng", meaning: "guarantee" },
     { pinyin: "Bǎoyǔ", meaning: "Bao Yu (name)" },
     { pinyin: "bǎoyù", meaning: "jade" }
 ];
-console.log(PinyinStrictSort(testDicts, "pinyin"));
-console.log(PinyinStrictSort(testDicts, "pinyin", true)); //reverse
+console.log(pinyinStrictSort(dicts, "pinyin"));
+
+// Reverse order
+console.log(pinyinStrictSort(words, null, true)); // ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+```
+
+### HTML
+```html
+<script src="pinyinStrictSort.js"></script>
+<script>
+    const words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"];
+    console.log(pinyinStrictSort(words)); // ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+</script>
 ```
 
 ## The difference, for example
