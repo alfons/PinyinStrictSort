@@ -27,3 +27,19 @@ def pinyin_strict_sort(items, key=None, reverse=False):
     items_list = list(items)
     items_list.sort(key=cmp_to_key(lambda a, b: _compare_pinyin(extractor(a), extractor(b))), reverse=reverse)
     return items_list
+
+
+# Sort strings
+# words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
+# print(pinyin_strict_sort(words))  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+
+# Sort dictionaries
+# dicts = [
+#     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+#     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+#     {"pinyin": "bǎoyù", "meaning": "jade"}
+# ]
+# print(pinyin_strict_sort(dicts, key="pinyin"))
+
+# Reverse order
+# print(pinyin_strict_sort(words, reverse=True))  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
