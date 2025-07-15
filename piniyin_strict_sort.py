@@ -1,5 +1,8 @@
-"""Strict alphabetical sorting for Hànyǔ Pīnyīn strings, or dictionaries, letter by letter, 
+"""Strict alphabetical sorting for Hànyǔ Pīnyīn words (fast)
+
+Strict alphabetical sorting for strings, or dictionaries, letter by letter, 
 treating tone marks as integral to letters (e.g., a < ā < á < ǎ < à). 
+
 See https://github.com/alfons/PinyinStrictSort for details.
 """
 from functools import cmp_to_key
@@ -29,17 +32,19 @@ def pinyin_strict_sort(items, key=None, reverse=False):
     return items_list
 
 
+"""
 # Sort strings
-# words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
-# print(pinyin_strict_sort(words))  # ['bǎoyù', 'bǎozhàng', 'Bǎoyǔ']
+words = ["bǎozhàng", "Bǎoyǔ", "bǎoyù"]
+pinyin_strict_sort(words)
 
 # Sort dictionaries
-# dicts = [
-#     {"pinyin": "bǎozhàng", "meaning": "guarantee"},
-#     {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
-#     {"pinyin": "bǎoyù", "meaning": "jade"}
-# ]
-# print(pinyin_strict_sort(dicts, key="pinyin"))
+dicts = [
+    {"pinyin": "bǎozhàng", "meaning": "guarantee"},
+    {"pinyin": "Bǎoyǔ", "meaning": "Bao Yu (name)"},
+    {"pinyin": "bǎoyù", "meaning": "jade"}
+]
+pinyin_strict_sort(dicts, key="pinyin")
 
 # Reverse order
-# print(pinyin_strict_sort(words, reverse=True))  # ['Bǎoyǔ', 'bǎozhàng', 'bǎoyù']
+pinyin_strict_sort(words, reverse=True)
+"""
