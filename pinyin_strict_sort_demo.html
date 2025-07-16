@@ -113,8 +113,8 @@
         </div>
     </div>
 
-    <script src="./PinyinStrictSort.js"></script>
-    <script>
+    <script> /* demo page function */
+
         function sortPinyin(reverse = false) {
             const textarea = document.getElementById("input");
             const lines = textarea.value.split('\n').filter(line => line.trim() !== '');
@@ -133,6 +133,49 @@
             const textarea = document.getElementById("input");
             textarea.value = wordList.join('\n');
         };
+    </script>
+
+    <script> /* pinyinStrictSort */
+
+        function comparePinyin(w1, w2) {
+            const orderedChars =
+                '0123456789aāáǎàAĀÁǍÀbBcCdDeēéěèEĒÉĚÈfFgGhHiīíǐìIĪÍǏÌ' +
+                'jJkKlLmMnNoōóǒòOŌÓǑÒpPqQrRsStTuūúǔùUŪÚǓÙüǖǘǚǜÜǕǗǙǛvVwWxXyYzZ\'- ';
+
+            const WEIGHTS = {};
+            for (let i = 0; i < orderedChars.length; i++) {
+                WEIGHTS[orderedChars[i]] = i;
+            }
+            const OFFSET = orderedChars.length;
+
+            // Step 1: Compare lowercase versions first (tones intact)
+            const lowerW1 = w1.toLowerCase();
+            const lowerW2 = w2.toLowerCase();
+            const seq1Lower = Array.from(lowerW1).map(c => (WEIGHTS[c] !== undefined ? WEIGHTS[c] : c.charCodeAt(0) + OFFSET));
+            const seq2Lower = Array.from(lowerW2).map(c => (WEIGHTS[c] !== undefined ? WEIGHTS[c] : c.charCodeAt(0) + OFFSET));
+
+            const lenLower = Math.min(seq1Lower.length, seq2Lower.length);
+            for (let i = 0; i < lenLower; i++) {
+                if (seq1Lower[i] !== seq2Lower[i]) return seq1Lower[i] - seq2Lower[i];
+            }
+            if (seq1Lower.length !== seq2Lower.length) return seq1Lower.length - seq2Lower.length;
+
+            // Step 2: Tiebreaker with original case
+            const seq1Orig = Array.from(w1).map(c => (WEIGHTS[c] !== undefined ? WEIGHTS[c] : c.charCodeAt(0) + OFFSET));
+            const seq2Orig = Array.from(w2).map(c => (WEIGHTS[c] !== undefined ? WEIGHTS[c] : c.charCodeAt(0) + OFFSET));
+            const lenOrig = Math.min(seq1Orig.length, seq2Orig.length);
+            for (let i = 0; i < lenOrig; i++) {
+                if (seq1Orig[i] !== seq2Orig[i]) return seq1Orig[i] - seq2Orig[i];
+            }
+            return seq1Orig.length - seq2Orig.length;
+        }
+
+        function pinyinStrictSort(items, key = null, reverse = false) {
+            const extractor = typeof key === 'string' ? x => x[key] : (key || (x => x));
+            const sorted = [...items];
+            sorted.sort((a, b) => comparePinyin(extractor(a), extractor(b)));
+            return reverse ? sorted.reverse() : sorted;
+        }
     </script>
 
     <div id="demo-pinyin-list" style="display:none">
