@@ -94,24 +94,24 @@ console.log(pinyinStrictSort(words, null, true)); // ['Bǎoyǔ', 'bǎozhàng', '
 
 ## The difference, for example
 
-| John DeFrancis et.al.     | PinyinStrictSort              |
-|---------------------------|----------------------------|
-| zhuānzhí                  | zhuānzhí                   |
-| zhuānzhǐ                  | zhuānzhí bǎomǔ             |
-| zhuānzhì                  | zhuānzhí shūjì             |
-| zhuānzhì                  | zhuānzhǐ                   |
-| zhuǎnzhí                  | zhuānzhì                   |
-| zhuǎnzhì                  | zhuānzhì                   |
-| zhuānzhí bǎomǔ            | zhuānzhìzhǔyì              |
-| zhuānzhì júnzhǔ           | zhuānzhì júnzhǔ            |
-| zhuānzhì qǐlai            | zhuānzhì qǐlai             |
-| zhuānzhì réngé            | zhuānzhì réngé             |
-| zhuānzhí shūjì            | zhuānzhì xìnggé            |
-| zhuānzhì xìnggé           | zhuānzhì zhēngzhì          |
-| zhuānzhì zhèngfǔ          | zhuānzhì zhèngfǔ           |
-| zhuānzhì zhèngtǐ          | zhuānzhì zhèngtǐ           |
-| zhuānzhì zhēngzhì         | zhuǎnzhí                   |
-| zhuānzhìzhǔyì             | zhuǎnzhì                   |
+|   PinyinStrictSort   |   John DeFrancis et.al.  |   Apple Numbers      |
+|----------------------|--------------------------|----------------------|
+|   zhuānzhí           |   zhuānzhí               |   zhuǎnzhí           |
+|   zhuānzhí bǎomǔ     |   zhuānzhǐ               |   zhuǎnzhì           |
+|   zhuānzhí shūjì     |   zhuānzhì               |   zhuānzhí           |
+|   zhuānzhǐ           |   zhuānzhì               |   zhuānzhì           |
+|   zhuānzhì           |   zhuǎnzhí               |   zhuānzhì           |
+|   zhuānzhì           |   zhuǎnzhì               |   zhuānzhǐ           |
+|   zhuānzhìzhǔyì      |   zhuānzhí bǎomǔ         |   zhuānzhí bǎomǔ     |
+|   zhuānzhì júnzhǔ    |   zhuānzhì júnzhǔ        |   zhuānzhì júnzhǔ    |
+|   zhuānzhì qǐlai     |   zhuānzhì qǐlai         |   zhuānzhì qǐlai     |
+|   zhuānzhì réngé     |   zhuānzhì réngé         |   zhuānzhì réngé     |
+|   zhuānzhì xìnggé    |   zhuānzhí shūjì         |   zhuānzhí shūjì     |
+|   zhuānzhì zhēngzhì  |   zhuānzhì xìnggé        |   zhuānzhì xìnggé    |
+|   zhuānzhì zhèngfǔ   |   zhuānzhì zhèngfǔ       |   zhuānzhì zhèngfǔ   |
+|   zhuānzhì zhèngtǐ   |   zhuānzhì zhèngtǐ       |   zhuānzhì zhèngtǐ   |
+|   zhuǎnzhí           |   zhuānzhì zhēngzhì      |   zhuānzhì zhēngzhì  |
+|   zhuǎnzhì           |   zhuānzhìzhǔyì          |   zhuānzhìzhǔyì      |
 
 ## History
 
