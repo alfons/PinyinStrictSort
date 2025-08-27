@@ -8,8 +8,8 @@ Sort Chinese (Hànyǔ) Pīnyīn words into strict alphabetical order.
 2. Respect diacritics (tone marks) as part of the letter, not merely 
 as tiebreaker.
 
-This approach reflects the fact that Hànyǔ Pīnyīn is written using the Latin 
-alphabet — the key insight behind this implementation.
+This approach reflects **the fact that Hànyǔ Pīnyīn is written using the Latin 
+alphabet** — the key insight behind this implementation.
 
 ## The ordering rules are:
 
