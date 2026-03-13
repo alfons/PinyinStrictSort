@@ -92,7 +92,67 @@ console.log(pinyinStrictSort(words, null, true)); // ['Bǎoyǔ', 'bǎozhàng', '
 </script>
 ```
 
-## The difference, for example
+## Sorting Philosophy
+
+PinyinStrictSort implements strict, character-by-character alphabetical ordering. This means sorting is performed exactly the way most programming languages compare strings: the first differing character determines the order. No syllable/morpheme segmentation is applied.
+
+For example:
+
+- `chéngjiù` < `chénjiù`
+
+This result follows directly from strict alphabetical comparison.
+
+```
+chéngjiù
+chénjiù
+    ^
+```
+
+the comparison is **g < j**, therefore `chéngjiù` sorts before `chénjiù`.
+
+### Why this may look unusual
+
+One might expect:
+
+```
+chénjiù
+chéngjiù
+```
+
+because we look at the syllables, effectively treating **chén** and **chéng** as complete units, and in our minds perform the following segmentation:
+
+```
+chén + jiù
+chéng + jiù
+```
+
+PinyinStrictSort deliberately does not perform syllable segmentation.
+
+### Example
+
+```python
+words = ['chéngjiù', 'chénjiù', 'chéng', 'chén']
+print(pinyin_strict_sort(words))
+```
+
+Output:
+
+```
+['chén', 'chéng', 'chéngjiù', 'chénjiù']
+```
+
+## Comparison with other sort methods
+
+### Hand picked word list
+
+| PinyinStrictSort | DeFrancis | Apple Numbers | Apple Numbers |
+|------------------|-----------|---------------|---------------|
+| chén | chén | chen | chén |
+| chéng | chéng | cheng | chéng |
+| chéngjiù | chéngjiù | chengjiu | chéngjiù |
+| chénjiù | chénjiù | chenjiu | chénjiù |
+
+### Continuous entries
 
 |   PinyinStrictSort   |   John DeFrancis et.al.  |   Apple Numbers      |
 |----------------------|--------------------------|----------------------|
@@ -116,4 +176,4 @@ console.log(pinyinStrictSort(words, null, true)); // ['Bǎoyǔ', 'bǎozhàng', '
 ## History
 
 This was much more difficult than expected, and took much longer than 
-expected. But in the end it looks simple, and flies like a SpaceX starship. 🚀
+expected. But in the end it looks simple. 🚀
